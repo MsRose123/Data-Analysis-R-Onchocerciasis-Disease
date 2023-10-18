@@ -1,0 +1,141 @@
+---
+title: "onchocerciasis"
+output: html_document
+date: '2022-10-17'
+---
+```{r}
+
+    dt0<-read_xls("oncho_ems.xls") #read excel file
+    dim(dt0) #dimension of table
+    names(dt0) #column names
+    dt0 %>% discard(is.null)# discard rows with null values
+    dim(dt0) ##dimension of table after clearing null value rows
+
+
+    head(dt0) #displays first six rows in the table
+
+    describe(dt0)
+
+```
+
+```{r}
+install.packages("gtsummary")
+library(gtsummary)
+library(readxl)
+library(tibble)
+install.packages("Hmisc")
+library(Hmisc)
+dt0<-read_xls("oncho_ems.xls")
+
+      # 1- rainforest : 0- savanna
+
+
+      #0- age 5-9
+      #1- age 10-19
+      #2- age 20-39
+      #3- 40+
+
+      # 1- female : 0- male
+      dt1 <- dt0 %>% select(mf,area,agegrp,sex)
+      dt1 %>% tbl_summary(by=sex) %>% add_overall() %>% add_p() 
+      
+      
+      
+head(dt0)
+nrow(dt0)
+ncol(dt0)
+names(dt0)
+describe(dt0)
+```
+```{r}
+str(dt0)
+```
+```{r}
+colnames(dt0)
+names(dt0)
+
+    summary(dt0)
+
+
+ncol(dt0)
+```
+```{r}
+
+cor(dt0)
+hist(dt0$sex)
+```
+```{r}
+dim(dt0)
+
+        dt0 <- data.frame(dt0)
+        par(mfrow=c(3,3), mar=c(4,4,2,0.5)) #set up id and margin
+        for(i in 1:ncol(dt0)){
+          
+              hist(dt0[ ,i], xlab=colnames(dt0)[i],
+                  main=paste("Histogram of ", colnames(dt0)[i]),
+                  col="lightpink")
+        }
+        
+```
+```{r}
+hist.data.frame(dt0)
+head(dt0)
+```
+
+# A
+the risk of microfilarial infection, and subsequently of eye lesions.
+
+Population: 1302
+Intervention: rainforest
+Comparison: savnnah
+Confounding: sex, age
+Primary Outcome: microfilarial infection
+Secondary Outcome: eye lesions
+
+```{r}
+# rf - rainforest, sv - savanna
+rf<-dt0$mf[which(dt0$area==1)]
+sv<-dt0$mf[which(dt0$area==0)]
+
+mean(rf)
+mean(sv)
+
+sum(rf)
+length(rf)
+rft<-c(sum(rf),length(rf)-sum(rf),length(rf))
+
+sum(sv)
+length(sv)
+svn<-c(sum(sv),length(sv)-sum(sv),length(sv))
+
+t1<-data.frame(rft,svn)
+t1<-t1 %>% add_column(total = t1$rft+t1$svn)
+rownames(t1)<-c("exposed(group 1)","unexposed(group 0)","total")
+
+t1
+```
+
+```{r}
+
+        e1 <-dt0$area[which(dt0$mf==1)]
+        e0 <-dt0$area[which(dt0$mf==0)]
+        
+        mean(e1)
+        mean(e0)
+        
+        sum(e1)
+        length(e1)
+        exposed<-c(sum(e1),length(e1)-sum(e1),length(e1))
+        
+        sum(e0)
+        length(e0)
+        unexposed<-c(sum(e0),length(e0)-sum(e0),length(e0))
+        
+        t2 <- data.frame(exposed,unexposed)
+        t2<-t2 %>% add_column(total = t2$exposed+t2$unexposed)
+        t2<-t2 %>% add_column(odds_of_infection = t2$exposed/t2$unexposed)
+        rownames(t2)<-c("Rainforest","Savanna","total")
+        
+        t2
+```
+
