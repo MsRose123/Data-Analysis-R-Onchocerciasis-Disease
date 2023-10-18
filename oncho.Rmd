@@ -1,14 +1,54 @@
 ---
-title: "onchocerciasis"
-output: html_document
+title: "Data Analysis on Onchocerciasis in Sierra Leone"
 date: '2022-10-17'
+output: 
+  html_document:
+    toc: no
+    toc_float: no
+    number_sections: no
+    df_print: paged
+    code_folding: show
+  pdf_document:
+    toc: yes
 ---
-```{r}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(include = TRUE) # change to TRUE when knitting solutions
+#knitr::opts_knit$set(root.dir = "/Users/divyarose/Dissertation")
+knitr::opts_chunk$set(cache = TRUE)
+#knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
 
-    dt0<-read_xls("oncho_ems.xls") #read excel file
+#getwd()
+#/Users/divyarose/Library/CloudStorage/OneDrive-UniversityofBristol/intro_ststistical_epidemioligical_methods/Assignments/ExploratoryAnalysis/
+```
+
+
+
+```{r load-packages, include=FALSE}
+### packages and libraries
+
+stack_size <- getOption("pandoc.stack.size", default = "512m")
+
+install.packages("dplyr", repos="http://cran.us.r-project.org")
+install.packages("tidyr", repos="http://cran.us.r-project.org")
+install.packages("ggplot2", repos="http://cran.us.r-project.org")
+install.packages("gtsummary", repos="http://cran.us.r-project.org")
+install.packages("Hmisc", repos="http://cran.us.r-project.org")
+
+library(gtsummary)
+library(readxl)
+library(tibble)
+library(Hmisc)
+```
+
+
+
+```{r, include=TRUE}
+
+dt0<-read_xls("/Users/divyarose/Library/CloudStorage/OneDrive-UniversityofBristol/intro_ststistical_epidemioligical_methods/Assignments/ExploratoryAnalysis/oncho_ems.xls") #read excel file
     dim(dt0) #dimension of table
     names(dt0) #column names
-    dt0 %>% discard(is.null)# discard rows with null values
+    dt0 %>% purrr::discard(is.null)# discard rows with null values
     dim(dt0) ##dimension of table after clearing null value rows
 
 
@@ -18,15 +58,7 @@ date: '2022-10-17'
 
 ```
 
-```{r}
-install.packages("gtsummary")
-library(gtsummary)
-library(readxl)
-library(tibble)
-install.packages("Hmisc")
-library(Hmisc)
-dt0<-read_xls("oncho_ems.xls")
-
+```{r, include=TRUE}
       # 1- rainforest : 0- savanna
 
 
@@ -47,10 +79,12 @@ ncol(dt0)
 names(dt0)
 describe(dt0)
 ```
-```{r}
+
+```{r, include=TRUE}
 str(dt0)
 ```
-```{r}
+
+```{r, include=TRUE}
 colnames(dt0)
 names(dt0)
 
@@ -59,12 +93,14 @@ names(dt0)
 
 ncol(dt0)
 ```
-```{r}
+
+```{r, include=TRUE}
 
 cor(dt0)
 hist(dt0$sex)
 ```
-```{r}
+
+```{r, include=TRUE}
 dim(dt0)
 
         dt0 <- data.frame(dt0)
@@ -77,7 +113,8 @@ dim(dt0)
         }
         
 ```
-```{r}
+
+```{r, include=TRUE}
 hist.data.frame(dt0)
 head(dt0)
 ```
@@ -92,7 +129,7 @@ Confounding: sex, age
 Primary Outcome: microfilarial infection
 Secondary Outcome: eye lesions
 
-```{r}
+```{r, include=TRUE}
 # rf - rainforest, sv - savanna
 rf<-dt0$mf[which(dt0$area==1)]
 sv<-dt0$mf[which(dt0$area==0)]
@@ -115,7 +152,7 @@ rownames(t1)<-c("exposed(group 1)","unexposed(group 0)","total")
 t1
 ```
 
-```{r}
+```{r, include=TRUE}
 
         e1 <-dt0$area[which(dt0$mf==1)]
         e0 <-dt0$area[which(dt0$mf==0)]
