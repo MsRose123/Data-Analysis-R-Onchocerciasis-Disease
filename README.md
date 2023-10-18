@@ -1,1 +1,1 @@
-# Exploratory-Analysis-of-Onchocerciasis-Disease-in-Sierra-Leone
+# Exploratory Analysis of Onchocerciasis Disease in Sierra Leone, Africa
