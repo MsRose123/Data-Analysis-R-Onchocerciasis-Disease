@@ -5,12 +5,12 @@
 - Data used : Secondary data on Onchocerciasis (River-blindness) from Sierra Leone, Africa
 - Dataset Variables:
 
-id - Unique number
-mf - Microfilaria Infection: 1 = yes, 0 = no
-area - Area of residdence: 1 = Rainforest, 0 = Savannah
-agegrp - Age Group(years): 0 = 5-9, 1 = 10-19, 2 = 20-39, 3 = 40+
-sex - 0 = male, 1 = female
-lesions - Eye Lesions: 0 = yes, 0 = no
+- id - Unique number
+- mf - Microfilaria Infection: 1 = yes, 0 = no
+- area - Area of residdence: 1 = Rainforest, 0 = Savannah
+- agegrp - Age Group(years): 0 = 5-9, 1 = 10-19, 2 = 20-39, 3 = 40+
+- sex - 0 = male, 1 = female
+- lesions - Eye Lesions: 0 = yes, 0 = no
 
 - Null hypothesis: Living in the Rainforest or Savannah area does not affect the risk of having Microfilarial Infection.
 
